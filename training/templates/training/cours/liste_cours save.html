@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Liste des Cours</h1>
+    {% for c in cours %}
+    <h2>{{c.titre}}</h2>
+    <p>{{ c.description }}</p>
+    <p>Durée : {{c.duree}}</p>
+    <p>Formateur : {{c.formateur.nom}}</p>
+    <p> Email Formateur: {{c.formateur.email}}</p>
+    {% endfor %}
+  </body>
+</html>

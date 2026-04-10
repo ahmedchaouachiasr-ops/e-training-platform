@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container" style="text-align: center; margin-top: 50px;">
+  <h2>Vous avez été déconnecté</h2>
+  <p style="color: var(--text-secondary); margin-bottom: 30px;">Nous espérons vous revoir bientôt sur la plateforme E-Training.</p>
+  <a href="{% url 'login' %}" class="btn btn-primary">Se reconnecter</a>
+</div>
+{% endblock %}

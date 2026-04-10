@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="d-flex justify-between align-center mb-20">
+  <h1>Catalogue des Cours</h1>
+  
+  {% if request.user.groups.all.0.name == "formateurs" %}
+  <div>
+    <span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; margin-bottom:0; margin-right: 15px;">Mode Formateur</span>
+    <a href="{% url 'cours_create' %}" class="btn btn-primary">+ Nouveau cours</a>
+  </div>
+  {% else %}
+  <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; margin-bottom:0;">Mode Apprenant</span>
+  {% endif %}
+</div>
+
+<div class="grid">
+  {% for c in cours %}
+  <div class="card">
+    <div class="card-title">{{ c.titre }}</div>
+    
+    <div class="card-body">
+      <p style="margin-bottom: 10px;">{{ c.description|truncatewords:20 }}</p>
+      <div style="font-size: 0.9rem;">
+        <strong>Durée:</strong> {{ c.duree }} h<br>
+        <strong>Formateur:</strong> {{ c.formateur.nom }}
+      </div>
+    </div>
+    
+    <div class="card-actions">
+      <a href="{% url 'cours_detail' c.pk %}" class="btn btn-secondary">Détails</a>
+      
+      {% if request.user.groups.all.0.name == "formateurs" %}
+      <a href="{% url 'cours_update' c.pk %}" class="btn btn-secondary">Modifier</a>
+      <a href="{% url 'cours_delete' c.pk %}" class="btn btn-danger">Supprimer</a>
+      {% endif %}
+    </div>
+  </div>
+  {% empty %}
+  <p style="color: var(--text-secondary);">Aucun cours disponible pour le moment.</p>
+  {% endfor %}
+</div>
+{% endblock %}

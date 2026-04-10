@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="form-container" style="max-width: 400px; margin-top: 50px;">
+  <h2 style="text-align: center; margin-bottom: 30px;">Connexion</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+        {{ form.as_p }}
+    </div>
+    
+    <div class="form-actions" style="margin-top: 20px;">
+      <button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

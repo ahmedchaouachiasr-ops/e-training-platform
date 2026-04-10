@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="d-flex justify-between align-center mb-20">
+  <h1>Mes Cours</h1>
+  <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; margin-bottom:0;">Tableau de bord</span>
+</div>
+
+<div class="grid">
+  {% for c in cours %}
+  <div class="card">
+    <div class="card-title">{{ c.titre }}</div>
+    
+    <div class="card-body">
+      <p style="margin-bottom: 10px;">{{ c.description|truncatewords:20 }}</p>
+      <div style="font-size: 0.9rem;">
+        <strong>Durée:</strong> {{ c.duree }} h<br>
+        <strong>Formateur:</strong> {{ c.formateur.nom }}
+      </div>
+    </div>
+    
+    <div class="card-actions">
+      <a href="{% url 'cours_detail' c.pk %}" class="btn btn-primary" style="width: 100%; text-align: center;">Accéder au cours</a>
+    </div>
+  </div>
+  {% empty %}
+  <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: var(--surface-color); border-radius: 16px;">
+    <h2 style="color: var(--text-secondary); margin-bottom: 20px;">Vous n'êtes inscrit à aucun cours</h2>
+    <a href="{% url 'cours_list' %}" class="btn btn-primary">Parcourir le catalogue</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

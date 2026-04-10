@@ -1,0 +1,62 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div style="margin-bottom: 20px;">
+  <a href="{% url 'cours_list' %}" style="color: var(--text-secondary); text-decoration: none;">&larr; Retour à la liste</a>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 0 auto;">
+  <h1 style="margin-bottom: 15px;">{{ cours.titre }}</h1>
+  
+  {% if cours.published %}
+    <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">Publié</span>
+  {% else %}
+    <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">Brouillon</span>
+  {% endif %}
+
+  <hr style="border:0; border-top: 1px solid var(--surface-border); margin: 20px 0;">
+
+  <div class="card-body" style="font-size: 1.1rem; line-height: 1.8;">
+    <h3>Description</h3>
+    <p style="margin-bottom: 30px;">{{ cours.description }}</p>
+    
+    <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 30px;">
+      <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+        <strong>🧑‍🏫 Formateur:</strong><br>
+        <a href="{% url 'formateur_detail' cours.formateur.pk %}" style="color: var(--accent-primary);">{{ cours.formateur.nom }}</a>
+      </div>
+      <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+        <strong>⏱️ Durée:</strong><br>
+        {{ cours.duree }} heures
+      </div>
+    </div>
+
+    <h3>Apprenants inscrits ({{ cours.apprenants.count }})</h3>
+    <ul style="list-style: none; padding-left: 0; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+      {% for apprenant in cours.apprenants.all %}
+      <li style="background: var(--surface-color); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--surface-border);">
+        {{ apprenant.nom }}
+      </li>
+      {% empty %}
+      <li style="color: var(--text-secondary); font-style: italic;">Aucun apprenant inscrit.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% if request.user.groups.all.0.name == "formateurs" %}
+  <div class="card-actions" style="margin-top: 30px; border-top: 1px solid var(--surface-border); padding-top: 20px;">
+    <a href="{% url 'cours_update' cours.pk %}" class="btn btn-primary">Modifier le cours</a>
+    <a href="{% url 'cours_delete' cours.pk %}" class="btn btn-danger">Supprimer le cours</a>
+  </div>
+  {% elif user.is_authenticated %}
+  <div class="card-actions" style="margin-top: 30px; border-top: 1px solid var(--surface-border); padding-top: 20px;">
+    <form action="{% url 'cours_inscription' cours.pk %}" method="post" style="margin: 0;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary" style="width: 100%;">
+        S'inscrire / Se désinscrire
+      </button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

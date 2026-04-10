@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="d-flex justify-between align-center mb-20">
+  <h1>Liste des Formateurs</h1>
+</div>
+
+<div class="grid">
+  {% for formateur in formateurs %}
+  <div class="card" style="align-items: center; text-align: center;">
+    <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin-bottom: 15px; color: white;">
+      {{ formateur.nom|make_list|first|upper }}
+    </div>
+    
+    <div class="card-title">{{ formateur.nom }}</div>
+    
+    <div class="card-body">
+      <p style="color: var(--accent-primary);">{{ formateur.email }}</p>
+    </div>
+    
+    <div class="card-actions" style="width: 100%; border-top: none;">
+      <a href="{% url 'formateur_detail' formateur.pk %}" class="btn btn-secondary" style="width: 100%;">Voir le profil</a>
+    </div>
+  </div>
+  {% empty %}
+  <p style="color: var(--text-secondary);">Aucun formateur disponible pour le moment.</p>
+  {% endfor %}
+</div>
+{% endblock %}

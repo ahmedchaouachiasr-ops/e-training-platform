@@ -1,0 +1,29 @@
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environnement virtuel
+.env
+env/
+venv/
+.venv/
+
+# Base de données locale
+db.sqlite3
+
+# Fichiers statiques collectés (générés par collectstatic)
+staticfiles/
+
+# Logs
+*.log
+debug.log
+
+# IDE / éditeurs
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

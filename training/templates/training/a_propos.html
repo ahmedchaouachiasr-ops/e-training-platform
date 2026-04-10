@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 60px;">
+  <h1 style="font-size: 3rem; margin-bottom: 10px;">À Propos</h1>
+  <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+    Cette plateforme de formation en ligne a été conçue et développée avec passion dans le cadre d'un projet pédagogique Django.
+  </p>
+</div>
+
+<div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); max-width: 800px; margin: 0 auto 60px auto;">
+
+  <!-- Contributeur 1 -->
+  <div class="card" style="align-items: center; text-align: center; padding: 40px 25px;">
+    <div style="width: 90px; height: 90px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: bold; color: white; margin-bottom: 20px;">
+      AC
+    </div>
+    <div class="card-title" style="font-size: 1.3rem; margin-bottom: 8px;">Ahmed Chaouachi</div>
+    <div class="card-body" style="margin-bottom: 0;">
+      <span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">Développeur</span>
+    </div>
+  </div>
+
+  <!-- Contributeur 2 -->
+  <div class="card" style="align-items: center; text-align: center; padding: 40px 25px;">
+    <div style="width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #ec4899); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: bold; color: white; margin-bottom: 20px;">
+      BV
+    </div>
+    <div class="card-title" style="font-size: 1.3rem; margin-bottom: 8px;">Bragano Valery</div>
+    <div class="card-body" style="margin-bottom: 0;">
+      <span class="badge" style="background: rgba(139, 92, 246, 0.2); color: #a78bfa;">Développeur</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="card" style="max-width: 700px; margin: 0 auto; text-align: center; padding: 35px;">
+  <h2 style="margin-bottom: 15px;">Le Projet</h2>
+  <p style="color: var(--text-secondary); line-height: 1.9; margin-bottom: 25px;">
+    <strong>E-Training</strong> est une plateforme de gestion de formations à distance développée avec le framework <strong>Django</strong>.
+    Elle permet la gestion des cours, des formateurs et des apprenants, ainsi qu'une API REST complète via <strong>Django REST Framework</strong>.
+  </p>
+  <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+    <span class="badge" style="background: rgba(16,185,129,0.15); color: #34d399;">Django 4.x</span>
+    <span class="badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa;">Django REST Framework</span>
+    <span class="badge" style="background: rgba(245,158,11, 0.15); color: #fbbf24;">Swagger / OpenAPI</span>
+    <span class="badge" style="background: rgba(139, 92, 246, 0.15); color: #a78bfa;">SQLite</span>
+  </div>
+</div>
+{% endblock %}

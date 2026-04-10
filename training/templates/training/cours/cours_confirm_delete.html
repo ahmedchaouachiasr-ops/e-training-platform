@@ -1,0 +1,20 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="form-container" style="max-width: 500px; margin-top: 50px; text-align: center;">
+  <h2 style="color: var(--alert-error); margin-bottom: 20px;">Confirmer la suppression</h2>
+  
+  <p style="margin-bottom: 30px; font-size: 1.1rem;">
+    Êtes-vous sûr de vouloir supprimer définitivement le cours <strong>"{{ object.titre }}"</strong> ? <br>
+    <span style="color: var(--text-secondary); font-size: 0.9rem; display: block; margin-top: 10px;">Cette action est irréversible.</span>
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-actions" style="justify-content: center; gap: 15px;">
+      <a href="{% url 'cours_list' %}" class="btn btn-secondary">Annuler</a>
+      <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
