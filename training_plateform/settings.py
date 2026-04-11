@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from logging import handlers
+import os
 from pathlib import Path
 from decouple import config, Csv
 import dj_database_url
@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-nnl&kn=2$ssihxdy-xk5zra2(rfii^0yozex!ya79^lwy3s8_4')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Accepter localhost en dev, et le domaine Render en prod
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.onrender.com,localhost,127.0.0.1', cast=Csv())
@@ -35,7 +35,6 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.onrender.com,localhost,127.0.0
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'cours_list'
 # LOGOUT_REDIRECT_URL ='login'
-
 
 
 # Application definition
@@ -52,17 +51,15 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'drf_yasg'
-    
 ]
 
-REST_FRAMEWORK ={
-    'DEFAULT_ATHENTICATION_CLASSES' : [ 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [  # CORRIGÉ : AUTHENTICATION (était ATHENTICATION)
         'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework.authentication.SessionAuthentication'
-        
-        ],
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE' : 3
+    'PAGE_SIZE': 3
 }
 
 MIDDLEWARE = [
@@ -81,7 +78,7 @@ ROOT_URLCONF = 'training_plateform.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # CORRIGÉ : Ajout du dossier templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,13 +142,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 # Dossier de collecte pour la production (utilisé par collectstatic)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # WhiteNoise: mode simple et fiable (pas de manifeste hasher)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
 # Default primary key field type
@@ -159,22 +154,18 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGGING ={
-
-    'version' : 1,
-    'handlers' : {
-        'file' : {
-            'class' : 'logging.FileHandler',
-            'filename' : 'debug.log'
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log'
         }
     },
     'loggers': {
-        'django' :{
-            'handlers' : ['file'],
-            'level' : 'INFO'
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO'
         }
     }
-
-
 }
-
