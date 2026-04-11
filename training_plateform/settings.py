@@ -30,7 +30,8 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-nnl&kn=2$ssihxdy-xk5z
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Accepter localhost en dev, et le domaine Render en prod
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.onrender.com,localhost,127.0.0.1', cast=Csv())
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.onrender.com,localhost,127.0.0.1', cast=Csv())
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'cours_list'
